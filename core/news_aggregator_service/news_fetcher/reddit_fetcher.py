@@ -4,14 +4,33 @@ from news_aggregator.settings import REDDIT_CLIENT_ID, REDDIT_SECRET, REDDIT_USE
 
 
 class RedditFetcher(NewsFetcher):
+    """
+    A class for fetching news from the Reddit API.
+    """
+    
     def __init__(self):
-        self.reddit = praw.Reddit(client_id=REDDIT_CLIENT_ID,
-                     client_secret=REDDIT_SECRET,
-                     user_agent=REDDIT_USER_AGENT)
-
+        """
+        Constructor for the RedditFetcher class.
+        
+        Initializes the Reddit API client and sets the maximum number of news items to fetch.
+        """
+        self.reddit = praw.Reddit(
+            client_id=REDDIT_CLIENT_ID,
+            client_secret=REDDIT_SECRET,
+            user_agent=REDDIT_USER_AGENT
+        )
         super().__init__()
     
-    def fetch_data(self, query=None):
+    def fetch_data(self, query=None) -> list[NewsItem]:
+        """
+        Fetches news items from the Reddit API.
+        
+        Args:
+            query (str): A search query for filtering news items. Defaults to None.
+            
+        Returns:
+            A list of NewsItem objects containing the fetched news items.
+        """
         subreddit = self.reddit.subreddit('news')
         if query:
             results = subreddit.search(query, limit=self.limit)

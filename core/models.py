@@ -12,6 +12,7 @@ class Favourite(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
     news_item = models.ForeignKey(NewsItem, on_delete=models.CASCADE, null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
+    is_favourite = models.BooleanField(default=True)
 
 class CachedNewsItem(models.Model):
     news_item = models.ForeignKey(NewsItem, on_delete=models.CASCADE)

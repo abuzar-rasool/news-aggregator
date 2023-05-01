@@ -16,10 +16,13 @@ class NewsAggregatorService:
 
         # If the cache is empty or expired, fetch news data from external sources
         combined_data = []
-        for fetcher in self.news_fetchers:  
-            news_data = fetcher.fetch_data(query)
-            combined_data.extend(news_data)
-            
+        for fetcher in self.news_fetchers:
+            try:  
+                news_data = fetcher.fetch_data(query)
+                combined_data.extend(news_data)
+            except Exception as e:
+                raise FailedToRetriveData(f'Failed to retrieve data from {fetcher.__class__.__name__}') from e
+                
 
 
         # Store the fetched data in the cache

@@ -38,4 +38,5 @@ class TestFavouriteService(TestCase):
 
         # Test removing a favourite
         favourites = self.service.toggle_favourite(self.user.username, self.news_item.id)
-        self.assertEqual(len(favourites), 0)
+        self.assertEqual(len(favourites), 1)
+        self.assertEqual(favourites[0].is_favourite, False)

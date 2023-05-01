@@ -1,6 +1,6 @@
-# Default size of the iteam fetched from each source
+# Default size of the iteam fetched from each source reddit and newsapi
 DEFAULT_PAGE_SIZE = 2
-# Default expiration time for the cache in the database
+# Default expiration time (seconds) for the cache in the database
 DEFAULT_EXPIRATION_TIME = 60
 
 

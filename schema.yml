@@ -1,0 +1,110 @@
+openapi: 3.0.3
+info:
+  title: News Aggregator API
+  version: 1.0.0
+  description: API for News Aggregator
+paths:
+  /api/news/:
+    get:
+      operationId: api_news_retrieve
+      parameters:
+      - in: query
+        name: query
+        schema:
+          type: string
+        description: Search Query
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NewsItem'
+          description: ''
+  /api/news/favourite/:
+    get:
+      operationId: api_news_favourite_retrieve
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Favourite'
+          description: ''
+    post:
+      operationId: api_news_favourite_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Favourite'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Favourite'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Favourite'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Favourite'
+          description: ''
+components:
+  schemas:
+    Favourite:
+      type: object
+      properties:
+        id:
+          type: integer
+        headline:
+          type: string
+        link:
+          type: string
+        source:
+          type: string
+        favourite:
+          type: boolean
+      required:
+      - headline
+      - id
+      - link
+      - source
+    NewsItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        headline:
+          type: string
+          maxLength: 255
+        link:
+          type: string
+          format: uri
+          maxLength: 200
+        source:
+          type: string
+          maxLength: 100
+      required:
+      - headline
+      - id
+      - link
+      - source
+  securitySchemes:
+    tokenAuth:
+      type: http
+      scheme: bearer

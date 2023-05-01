@@ -6,7 +6,7 @@ class NewsAggregator:
         self.news_fetchers = news_fetchers
         self.cache_fetcher = cache_fetcher
 
-    def fetch_combined_news_data(self,query=None):
+    def fetch_combined_news_data(self,query:str=None):
         # First, try to fetch news data from the cache
         cached_data = self.cache_fetcher.fetch(query)
 

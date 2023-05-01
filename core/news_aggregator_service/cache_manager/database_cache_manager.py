@@ -3,14 +3,13 @@ from typing import List
 
 from django.db import transaction
 
-from .cache_fetcher import CacheFetcher
+from .cache_manager import CacheManager
 from core.models import NewsItem, CachedNewsItem
 from django.utils import timezone
+from news_aggregator.settings import DEFAULT_EXPIRATION_TIME
 
 
-DEFAULT_EXPIRATION_TIME = 60
-
-class DatabaseCacheFetcher(CacheFetcher):
+class DatabaseCacheManager(CacheManager):
     def __init__(self, expiration_time=DEFAULT_EXPIRATION_TIME):
         self.expiration_time = expiration_time
         

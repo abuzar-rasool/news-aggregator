@@ -1,11 +1,11 @@
 from .news_fetcher import *
-from .cache_fetcher import *
+from .cache_manager import *
 from .exceptions import FailedToRetriveData
 
 class NewsAggregatorService:
-    def __init__(self, news_fetchers: list[NewsFetcher], cache_fetcher: CacheFetcher):
+    def __init__(self, news_fetchers: list[NewsFetcher], cache_manager: CacheManager):
         self.news_fetchers = news_fetchers
-        self.cache_fetcher = cache_fetcher
+        self.cache_fetcher = cache_manager
 
     def fetch_combined_news_data(self,query:str=None):
         # First, try to fetch news data from the cache
@@ -16,12 +16,10 @@ class NewsAggregatorService:
 
         # If the cache is empty or expired, fetch news data from external sources
         combined_data = []
-        for fetcher in self.news_fetchers:
-            try:
-                news_data = fetcher.fetch_data(query)
-                combined_data.extend(news_data)
-            except Exception as e:
-                raise FailedToRetriveData(fetcher)
+        for fetcher in self.news_fetchers:  
+            news_data = fetcher.fetch_data(query)
+            combined_data.extend(news_data)
+            
 
 
         # Store the fetched data in the cache
@@ -30,4 +28,4 @@ class NewsAggregatorService:
         return combined_data
     
 
-news_aggregator_service = NewsAggregatorService([RedditFetcher(), NewsAPIFetcher()], DatabaseCacheFetcher())
+news_aggregator_service = NewsAggregatorService([RedditFetcher(), NewsAPIFetcher()], DatabaseCacheManager())

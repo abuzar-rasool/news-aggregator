@@ -1,7 +1,7 @@
 from .news_fetcher import *
 from newsapi import NewsApiClient
+from news_aggregator.config import NEWS_API_KEY
 
-NEWS_API_KEY = '052201da5fbb4ec5a36d55c94c65013c'
 
 class NewsAPIFetcher(NewsFetcher):
     

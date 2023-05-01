@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 from core.models import NewsItem
-
-DEFAULT_PAGE_SIZE = 2
+from news_aggregator.config import DEFAULT_PAGE_SIZE
 
 class NewsFetcher(ABC):
     def __init__(self, limit=DEFAULT_PAGE_SIZE):

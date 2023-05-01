@@ -1,9 +1,7 @@
 from .news_fetcher import *
 import praw
+from news_aggregator.settings import REDDIT_CLIENT_ID, REDDIT_SECRET, REDDIT_USER_AGENT
 
-REDDIT_CLIENT_ID = 'ziZLXRqA1S8LM22s_8rS6g'
-REDDIT_SECRET = 'asFaNLoptook3_DA6b13QSKDHpaNPA'
-REDDIT_USER_AGENT = 'by u/Grand-Cauliflower-33'
 
 class RedditFetcher(NewsFetcher):
     def __init__(self):

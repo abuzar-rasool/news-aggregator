@@ -93,18 +93,54 @@ Log in with your superuser credentials.
 1. Click on **Authorize**  in http://127.0.0.1:8000/.
 2. Add your token in the value box and click **Authorize**
 
-## Documentation
-In order to effiececintly make documentations i have added swagger UI for this project. Detailed API docs for are present there. Hoever i will be going over the archiectecture of the app in this section.
+## Project Documentation  
 
+ In order to efficiently create documentations, ihave added the Swagger UI for this project. Detailed API docs are present there. However, we will be going over the architecture of the app in this section. 
 
-## Testing
-For the scope of this assignment i have written test for the dervices that are being used by the API Views!
-All the tests are present in 
+![project structure](https://github.com/abuzar-rasool/news-aggregator/blob/main/images/arch.png?raw=true)
+
+### Overview & Config
+The application contains an app named `core`, which includes all the essential functionalities for our project. In the `news_aggregator/config.py`, i have multiple settings:
+
+    # Default size of the item fetched from each source reddit and newsapi
+    
+    DEFAULT_PAGE_SIZE = 2
+    
+    # Default expiration time (seconds) for the cache in the database
+    
+    DEFAULT_EXPIRATION_TIME = 60
+The file also includes API keys for Reddit and NewsAPI. For easier checking of this assignment, i have not separated them into environment files. However, this should be done in a production environment.
+### Core Modules
+ The core contains 4 sub-modules: 
+ ### 1. NewsAggregatorService 
+ This is a service that encapsulates all the business logic and complexities of caching and fetching the data. It has two sub-modules: `cache_manager` and `news_fetcher`. Through the use of SOLID principles, we achieved an easily extensible service. The current service on the app is defined in `core/news_aggregator_service/news_aggregator_service.py` as:
+
+    news_aggregator_service = NewsAggregatorService( [RedditFetcher(), NewsAPIFetcher()], DatabaseCacheManager() )
+This allows us not only to add or remove news sources easily but also separates the cache management logic so that in case we use some other caching technique, we can easily adapt.
+### 2. FavouritesService
+
+This is similar to `NewsAggregatorService` and helps in managing user favorites. The functionality that this service provides us is `get_favourites(self, user) -> list[Favourite]` and `toggle_favourite(self, user, id) -> list[Favourite]`
+
+### 3. API
+
+I have used class based views for this assignment. These views depend on services defined above in order to get the data which is then passed through serializers.
+
+### 4. Tests
+
+The `tests` module contains all the service tests. These tests are designed to ensure that the functionality of the application is working correctly and to catch any issues that may arise during development. The tests cover various aspects of the application, such as:
+
+-   Testing the functionality of the `NewsAggregatorService` and its sub-modules (`cache_manager` and `news_fetcher`).
+-   Ensuring that the `FavouritesService` is working correctly and managing user favorites as expected.
+
+ The tests are present in 
 
 > news-aggregator/core/tests
 
-In order to run the tests please run the following command.
+In order to run the tests please run the following command!
 
     python manage.py test core.tests
+
+## Feedback
+I have given my best to ace this assignment. I hope i was able to demostrate my full potential. Looking forword for your feedback. Feel free to reach out to me if you have any questions!
 
 

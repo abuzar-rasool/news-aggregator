@@ -1,6 +1,6 @@
 # News Aggregator API
 
-The **News Aggregator API** is a Django-based project designed to gather data from multiple sources such as Reddit and News API. The project follows the SOLID principles, which ensure that it is maintainable, scalable, and extensible.
+The **News Aggregator API** is a Django-based project designed to gather data from multiple sources such as Reddit and News API. I have tried to use the SOLID principles in the project, to ensure that it is maintainable, scalable, and extensible.
 
 The architecture of the application allows for the easy addition of new API sources without modifying the existing code. Each API source is encapsulated in a separate class, which is responsible for gathering data from its respective source. Moreover the business logic is extracted out from the views via services!
 
@@ -109,7 +109,7 @@ The application contains an app named `core`, which includes all the essential f
     # Default expiration time (seconds) for the cache in the database
     
     DEFAULT_EXPIRATION_TIME = 60
-The file also includes API keys for Reddit and NewsAPI. For easier checking of this assignment, i have not separated them into environment files. However, this should be done in a production environment.
+The file also includes API keys for Reddit and NewsAPI. **For easier checking of this assignment, i have not separated them into environment files. However, this should be done in a production environment.**
 ### Core Modules
  The core contains 4 sub-modules: 
  ### 1. NewsAggregatorService 

@@ -1,0 +1,1 @@
+from .news_aggregator_service import news_aggregator_service
